@@ -4,6 +4,8 @@ import axios from 'axios';
 import { Container, Header, Icon, List } from 'semantic-ui-react';
 import { FaAirbnb } from "react-icons/fa";
 import { LearningUnit } from '../models/learningUnit';
+import NavBar from './navbar';
+import ActivityDashboard from '../../features/learningUnits/dashboard/learningUnitsDashboard';
 function App() {
 
   const [learningUnits, setLearningUnits] = useState<LearningUnit[]>([]);
@@ -17,19 +19,12 @@ function App() {
 
 
   return (
-
-    <div>
-      <div>
-        <FaAirbnb /> <Header as='h1' content='Learning Units' />
-      </div>
-      <List>
-        {learningUnits.map(learningUnit => (
-          <List.Item key={learningUnit.id}>
-            {learningUnit.title}
-          </List.Item>
-        ))}
-      </List>
-    </div>
+    <>
+      <NavBar />
+      <Container style={{ marginTop: '7em' }} >
+        <ActivityDashboard learningUnits={learningUnits} />
+      </Container>
+    </>
   );
 }
 
