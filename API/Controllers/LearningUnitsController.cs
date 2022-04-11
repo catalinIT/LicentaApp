@@ -25,6 +25,13 @@ namespace API.Controllers
             return await Mediator.Send(new DetailsLearningUnit.Query { Id = id });
         }
 
+        [HttpPut("{id}")]
+        public async Task<IActionResult> EditActivity(Guid id, LearningUnit learningUnit)
+        {
+            learningUnit.Id = id;
+            return Ok(await Mediator.Send(new Edit.Command { LearningUnit = learningUnit }));
+        }
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteActivity(Guid id)
         {
