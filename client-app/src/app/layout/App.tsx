@@ -9,6 +9,7 @@ import ActivityDashboard from '../../features/learningUnits/dashboard/learningUn
 function App() {
 
   const [learningUnits, setLearningUnits] = useState<LearningUnit[]>([]);
+  const [selectedLearningUnit, setSelectedLearningUnit] = useState<LearningUnit | undefined>(undefined);
 
   useEffect(() => {
     axios.get<LearningUnit[]>('http://localhost:5000/api/learningUnits').then(response => {
@@ -17,12 +18,30 @@ function App() {
     })
   }, []);
 
+  //scrie in licenta
+  //create a function to handle the selection of an activity - function that is going to be passed down
+  function handleSelectLearningUnit(id: string) {
+    setSelectedLearningUnit(learningUnits.find(x => x.id === id));
+  }
 
+  function handleCancelSelectLearningUnit() {
+    setSelectedLearningUnit(undefined);
+  }
+
+  function handleSetLearningUnitFavorite(learningUnit: LearningUnit) {
+    setLearningUnits([...learningUnits.filter(x => x.id !== learningUnit.id), learningUnit]);
+  }
   return (
     <>
       <NavBar />
       <Container style={{ marginTop: '7em' }} >
-        <ActivityDashboard learningUnits={learningUnits} />
+        <ActivityDashboard
+          learningUnits={learningUnits}
+          selectedLearningUnit={selectedLearningUnit}
+          selectLearningUnit={handleSelectLearningUnit}
+          cancelSelectLearningUnit={handleCancelSelectLearningUnit}
+          handleSetLearningUnitFavorite={handleSetLearningUnitFavorite}
+        />
       </Container>
     </>
   );
