@@ -1,20 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import './styles.css';
-import axios from 'axios';
 import { Container, Header, Icon, List } from 'semantic-ui-react';
-import { FaAirbnb } from "react-icons/fa";
 import { LearningUnit } from '../models/learningUnit';
 import NavBar from './navbar';
 import ActivityDashboard from '../../features/learningUnits/dashboard/learningUnitsDashboard';
+import agent from '../api/agent';
+import LoadingComponent from './LoadingComponents';
 function App() {
 
   const [learningUnits, setLearningUnits] = useState<LearningUnit[]>([]);
   const [selectedLearningUnit, setSelectedLearningUnit] = useState<LearningUnit | undefined>(undefined);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get<LearningUnit[]>('http://localhost:5000/api/learningUnits').then(response => {
-      console.log(response);
-      setLearningUnits(response.data);
+    agent.LearningUnits.list().then(response => {
+      setLearningUnits(response);
+      setLoading(false);
     })
   }, []);
 
@@ -31,6 +32,9 @@ function App() {
   function handleSetLearningUnitFavorite(learningUnit: LearningUnit) {
     setLearningUnits([...learningUnits.filter(x => x.id !== learningUnit.id), learningUnit]);
   }
+
+  if(loading) return <LoadingComponent/>
+
   return (
     <>
       <NavBar />
