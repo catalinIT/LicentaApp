@@ -4,9 +4,12 @@ import './app/layout/styles.css';
 import App from './app/layout/App';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
+import { StoreContext, store } from './app/stores/store';
 
 ReactDOM.render(
-    <App />,
+  <StoreContext.Provider value={store}>
+    <App />
+  </StoreContext.Provider>,
   document.getElementById('root')
 );
 

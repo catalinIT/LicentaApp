@@ -15,8 +15,6 @@ interface Props {
 
 export default function LearningUnitList({ learningUnits, selectLearningUnit, handleSetLearningUnitFavorite }: Props) {
 
-    const [fav, setFav] = useState(false);
-
     return (
         <Segment>
             <Item.Group divided>

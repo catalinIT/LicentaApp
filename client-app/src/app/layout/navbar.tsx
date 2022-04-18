@@ -8,7 +8,7 @@ export default function NavBar() {
             <img src="assets/logo2.jpg" alt="asta e o poza" style={{ marginRight: '10px' }} />
             <div className="header-right">
                 <button className="button-84" role="button">Solve a random quiz</button>
-                <button className="button-84" style={{margin: "3%"}} role="button">Display contents for your favorite sections</button>
+                <button className="button-84" style={{margin: "3%"}} role="button">Display favorite sections</button>
                 <button className="button-84" role="button">Try our lie detector</button>
             </div>
         </div>

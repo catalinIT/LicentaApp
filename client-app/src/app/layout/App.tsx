@@ -6,7 +6,10 @@ import NavBar from './navbar';
 import ActivityDashboard from '../../features/learningUnits/dashboard/learningUnitsDashboard';
 import agent from '../api/agent';
 import LoadingComponent from './LoadingComponents';
+import { useStore } from '../stores/store';
+
 function App() {
+  const {learningUnitStore} = useStore();
 
   const [learningUnits, setLearningUnits] = useState<LearningUnit[]>([]);
   const [selectedLearningUnit, setSelectedLearningUnit] = useState<LearningUnit | undefined>(undefined);
