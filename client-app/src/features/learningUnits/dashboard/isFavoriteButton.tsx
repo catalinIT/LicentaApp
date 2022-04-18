@@ -5,20 +5,19 @@ import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import Favorite from "@material-ui/icons/Favorite";
 import IconButton from '@material-ui/core/IconButton';
+import { store, useStore } from "../../../app/stores/store";
+import { observer } from "mobx-react-lite";
 
 interface Props {
     learningUnit: LearningUnit;
-    handleSetLearningUnitFavorite: (learningUnit: LearningUnit) => void;
 }
 
-export default function IsFavoriteButton({ learningUnit, handleSetLearningUnitFavorite }: Props) {
+export default observer(function IsFavoriteButton({ learningUnit }: Props) {
 
-    const [selectedLearningUnit, setSelectedLearningUnit] = useState(learningUnit);
+    const {learningUnitStore} = useStore();
 
     function handleSetFavorite() {
-        setSelectedLearningUnit(learningUnit);
-        selectedLearningUnit.isFavorite = !selectedLearningUnit.isFavorite;
-        handleSetLearningUnitFavorite(selectedLearningUnit);
+        learningUnitStore.updateLearningUnitFavoriteState(learningUnit);
     }
 
     return (
@@ -35,4 +34,4 @@ export default function IsFavoriteButton({ learningUnit, handleSetLearningUnitFa
             }
         </>
     )
-}
+})

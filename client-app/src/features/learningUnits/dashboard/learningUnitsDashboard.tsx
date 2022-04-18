@@ -4,34 +4,30 @@ import { LearningUnit } from "../../../app/models/learningUnit";
 import LearningUnitDetails from "../details/learningUnitDetails";
 import LearningUnitList from "./learningUnitList";
 import { Container, Row, Col } from 'react-grid-system'
+import { useStore } from "../../../app/stores/store";
+import { observer } from "mobx-react-lite";
 
 interface Props {
     learningUnits: LearningUnit[];
-    selectedLearningUnit: LearningUnit | undefined;
-    selectLearningUnit: (id: string) => void;
-    cancelSelectLearningUnit: () => void;
-    handleSetLearningUnitFavorite: (learningUnit: LearningUnit) => void;
 }
 
-export default function ActivityDashboard({ learningUnits,
-    selectedLearningUnit,
-    selectLearningUnit,
-    cancelSelectLearningUnit,
-    handleSetLearningUnitFavorite }: Props) {
+export default observer(function ActivityDashboard({ learningUnits }: Props) {
+
+    const {learningUnitStore} = useStore();
+    const {selectedLearningUnit} = learningUnitStore;
+    
     return (
         <Container fluid>
             <Row>
                 <Col sm={4}>
                     <LearningUnitList
-                        learningUnits={learningUnits}
-                        selectLearningUnit={selectLearningUnit}
-                        handleSetLearningUnitFavorite={handleSetLearningUnitFavorite} />
+                        learningUnits={learningUnits}/>
                 </Col>
                 <Col sm={8}>
                     {selectedLearningUnit &&
-                        <LearningUnitDetails learningUnit={selectedLearningUnit} cancelSelectLearningUnit={cancelSelectLearningUnit} />}
+                        <LearningUnitDetails />}
                 </Col>
             </Row>
         </Container>
     )
-}
+})

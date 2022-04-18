@@ -6,14 +6,15 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import Favorite from "@material-ui/icons/Favorite";
 import IconButton from '@material-ui/core/IconButton';
 import IsFavoriteButton from "./isFavoriteButton";
+import { useStore } from "../../../app/stores/store";
 
 interface Props {
     learningUnits: LearningUnit[];
-    selectLearningUnit: (id: string) => void;
-    handleSetLearningUnitFavorite: (learningUnit: LearningUnit) => void;
 }
 
-export default function LearningUnitList({ learningUnits, selectLearningUnit, handleSetLearningUnitFavorite }: Props) {
+export default function LearningUnitList({ learningUnits }: Props) {
+
+    const {learningUnitStore} = useStore();
 
     return (
         <Segment>
@@ -24,11 +25,11 @@ export default function LearningUnitList({ learningUnits, selectLearningUnit, ha
                             <Item.Header className="itemHeader" as='a'>{learningUnit.title}</Item.Header>
                             <Item.Extra style={{ height: "fit-content" }}>
                                 <Button
-                                    onClick={() => selectLearningUnit(learningUnit.id)}
+                                    onClick={() => learningUnitStore.selectLearningUnit(learningUnit.id)}
                                     style={{ margin: "1.5%" }}
                                     className="button-84"
                                     content='See contents' />
-                                <IsFavoriteButton learningUnit={learningUnit} handleSetLearningUnitFavorite={handleSetLearningUnitFavorite}/>
+                                <IsFavoriteButton learningUnit={learningUnit} />
                             </Item.Extra>
                             <Item.Extra className="itemHeader">
                             </Item.Extra>
