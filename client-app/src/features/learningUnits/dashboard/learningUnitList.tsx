@@ -1,22 +1,17 @@
-import React, { useState } from "react";
+
 import { Button, Item, Segment } from "semantic-ui-react";
 import { LearningUnit } from "../../../app/models/learningUnit";
-import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import Favorite from "@material-ui/icons/Favorite";
-import IconButton from '@material-ui/core/IconButton';
 import IsFavoriteButton from "./isFavoriteButton";
 import { useStore } from "../../../app/stores/store";
+import { Link } from "react-router-dom";
 
-interface Props {
-    learningUnits: LearningUnit[];
-}
 
-export default function LearningUnitList({ learningUnits }: Props) {
+export default function LearningUnitList() {
 
     const {learningUnitStore} = useStore();
-
-    return (
+    const {learningUnits} = learningUnitStore;
+    
+     return (
         <Segment>
             <Item.Group divided>
                 {learningUnits.map(learningUnit => (
@@ -25,7 +20,7 @@ export default function LearningUnitList({ learningUnits }: Props) {
                             <Item.Header className="itemHeader" as='a'>{learningUnit.title}</Item.Header>
                             <Item.Extra style={{ height: "fit-content" }}>
                                 <Button
-                                    onClick={() => learningUnitStore.selectLearningUnit(learningUnit.id)}
+                                    as={Link} to={`/learningUnits/${learningUnit.id}`}
                                     style={{ margin: "1.5%" }}
                                     className="button-84"
                                     content='See contents' />

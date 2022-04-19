@@ -1,8 +1,6 @@
-import React, { ChangeEvent, useState } from "react";
-import { Button, Item, Segment } from "semantic-ui-react";
+
 import { LearningUnit } from "../../../app/models/learningUnit";
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
-import FavoriteIcon from '@material-ui/icons/Favorite';
 import Favorite from "@material-ui/icons/Favorite";
 import IconButton from '@material-ui/core/IconButton';
 import { store, useStore } from "../../../app/stores/store";

@@ -1,31 +1,35 @@
-import React, { useEffect, useState } from 'react';
+
 import './styles.css';
 import { Container, Header, Icon, List } from 'semantic-ui-react';
-import { LearningUnit } from '../models/learningUnit';
 import NavBar from './navbar';
-import ActivityDashboard from '../../features/learningUnits/dashboard/learningUnitsDashboard';
-import LoadingComponent from './LoadingComponents';
-import { useStore } from '../stores/store';
+import LearningUnitDashboard from '../../features/learningUnits/dashboard/learningUnitsDashboard';
 import { observer } from 'mobx-react-lite';
+import { Route } from 'react-router-dom';
+import HomePage from '../../features/learningUnits/home/HomePage';
+import LieDetector from '../../features/learningUnits/lieDetector/LieDetector';
+import RandomQuiz from '../../features/learningUnits/quiz/randomQuiz';
+import LearningUnitDetails from '../../features/learningUnits/details/learningUnitDetails';
 
 function App() {
-  const {learningUnitStore} = useStore();
 
-  useEffect(() => {
-    learningUnitStore.loadLearningUnits()
-  }, [learningUnitStore]);
-
-
-  if(learningUnitStore.loadingInitial) return <LoadingComponent/>
 
   return (
     <>
-      <NavBar />
-      <Container style={{ marginTop: '7em' }} >
-        <ActivityDashboard
-          learningUnits={learningUnitStore.learningUnits}
-        />
-      </Container>
+      <Route exact path='/' component={HomePage} />
+      <Route
+        path={'/(.+)'}
+        render={() => (
+          <>
+            <NavBar />
+            <Container style={{ marginTop: '7em' }} >
+              <Route exact path='/learningUnits' component={LearningUnitDashboard} />
+              <Route path='/learningUnits/:id' component={LearningUnitDetails} />
+              <Route path='/lieDetector' component={LieDetector} />
+              <Route path='/randomQuiz' component={RandomQuiz} />
+            </Container>
+          </>
+        )}
+      />
     </>
   );
 }

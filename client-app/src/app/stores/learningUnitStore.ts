@@ -14,9 +14,10 @@ export default class LearningUnitStore {
     }
 
     loadLearningUnits = async () => {
-        this.setLoadingInitial(true);
+        this.loadingInitial = true;
         try {
             const learningUnits = await agent.LearningUnits.list();
+            this.learningUnits = [];
             learningUnits.forEach(learningUnit => {
                 this.learningUnits.push(learningUnit);
             })
@@ -27,20 +28,34 @@ export default class LearningUnitStore {
         }
     }
 
+    // no need to extra load from the api
+    loadLearningUnit = async (id: string) => {
+        let learningUnit = this.getLearningUnit(id);
+        if (learningUnit) {
+            this.selectedLearningUnit = learningUnit;
+        } else {
+            this.loadingInitial = true;
+            try {
+                learningUnit = await agent.LearningUnits.details(id);
+                let learningUnitIndex = this.learningUnits.findIndex(l => l.id === learningUnit?.id);
+                this.learningUnits[learningUnitIndex] = learningUnit;
+                this.selectedLearningUnit = learningUnit;
+                this.setLoadingInitial(false)
+            } catch (error) {
+                console.log(error);
+                this.setLoadingInitial(false);
+            }
+        }
+    }
+
+    private getLearningUnit = (id: string) => {
+        return this.learningUnits.find(l => l.id === id);
+    }
+
     setLoadingInitial = (state: boolean) => {
         this.loadingInitial = state;
     }
 
-    
-    selectLearningUnit = (id: string) => {
-        this.selectedLearningUnit = this.learningUnits.find(l => l.id === id);
-    }
-
-    cancelSelectedLearningUnit = () => {
-        this.selectedLearningUnit = undefined;
-    }
-
-   
     updateLearningUnitFavoriteState = async (learningUnit: LearningUnit) => {
         this.loading = true;
         try {
