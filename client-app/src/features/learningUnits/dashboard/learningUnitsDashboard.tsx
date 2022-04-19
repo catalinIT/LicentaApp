@@ -13,7 +13,7 @@ export default observer(function LearningUnitDashboard() {
         if(learningUnits.length <= 1) {
             loadLearningUnits()
         }
-    }, [learningUnitStore]);
+    }, [learningUnits.length, loadLearningUnits]);
 
 
     if (learningUnitStore.loadingInitial) return <LoadingComponent />

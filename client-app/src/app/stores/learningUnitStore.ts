@@ -17,11 +17,12 @@ export default class LearningUnitStore {
         this.loadingInitial = true;
         try {
             const learningUnits = await agent.LearningUnits.list();
-            this.learningUnits = [];
-            learningUnits.forEach(learningUnit => {
-                this.learningUnits.push(learningUnit);
+            runInAction(() => {
+                learningUnits.forEach(learningUnit => {
+                    this.learningUnits.push(learningUnit);
+                })
+                this.setLoadingInitial(false);
             })
-            this.setLoadingInitial(false);
         } catch (error) {
             console.log(error);
             this.setLoadingInitial(false);
@@ -37,14 +38,27 @@ export default class LearningUnitStore {
             this.loadingInitial = true;
             try {
                 learningUnit = await agent.LearningUnits.details(id);
-                let learningUnitIndex = this.learningUnits.findIndex(l => l.id === learningUnit?.id);
-                this.learningUnits[learningUnitIndex] = learningUnit;
-                this.selectedLearningUnit = learningUnit;
-                this.setLoadingInitial(false)
+                runInAction(() => {
+                    if (learningUnit) {
+                        let learningUnitIndex = this.learningUnits.findIndex(l => l.id === learningUnit?.id);
+                        this.learningUnits[learningUnitIndex] = learningUnit;
+                    }
+                    this.selectedLearningUnit = learningUnit;
+                    this.setLoadingInitial(false)
+                })
             } catch (error) {
                 console.log(error);
-                this.setLoadingInitial(false);
+                runInAction(() => {
+                    this.setLoadingInitial(false);
+                })
             }
+        }
+    }
+
+    setLearningUnit(learningUnit: LearningUnit) {
+        let learningUnitIndex = this.learningUnits.findIndex(l => l.id === learningUnit?.id);
+        if (learningUnitIndex) {
+            this.learningUnits[learningUnitIndex] = learningUnit;
         }
     }
 
