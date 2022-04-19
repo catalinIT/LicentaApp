@@ -21,7 +21,7 @@ function App() {
         render={() => (
           <>
             <NavBar />
-            <Container style={{ marginTop: '7em' }} >
+            <Container style={{ marginTop: '3em' }} >
               <Route exact path='/learningUnits' component={LearningUnitDashboard} />
               <Route path='/learningUnits/:id' component={LearningUnitDetails} />
               <Route path='/lieDetector' component={LieDetector} />
