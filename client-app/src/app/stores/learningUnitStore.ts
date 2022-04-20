@@ -4,6 +4,7 @@ import { LearningUnit } from "../models/learningUnit";
 
 export default class LearningUnitStore {
     learningUnits: LearningUnit[] = [];
+    databaseUnits: LearningUnit[] = [];
     selectedLearningUnit: LearningUnit | undefined = undefined;
     loading = false;
     loadingInitial = false;
@@ -21,6 +22,9 @@ export default class LearningUnitStore {
                 learningUnits.forEach(learningUnit => {
                     this.learningUnits.push(learningUnit);
                 })
+                this.learningUnits.forEach(learningUnit => {
+                    this.databaseUnits.push(learningUnit);
+                })
                 this.setLoadingInitial(false);
             })
         } catch (error) {
@@ -29,6 +33,13 @@ export default class LearningUnitStore {
         }
     }
 
+    loadFavoriteLearningUnits = async () => {
+        this.learningUnits = [...this.learningUnits.filter(l => l.isFavorite === true)];
+    }
+
+    setDatabaseUnits = async () => {
+        this.learningUnits = this.databaseUnits;
+    }
     // no need to extra load from the api
     loadLearningUnit = async (id: string) => {
         let learningUnit = this.getLearningUnit(id);
@@ -87,4 +98,6 @@ export default class LearningUnitStore {
             })
         }
     }
+
+    
 }
