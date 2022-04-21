@@ -5,14 +5,15 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
+using Application.Core;
 
 namespace Application.LearningUnits
 {
     public class ListLearningUnits
     {
-        public class Query : IRequest<List<LearningUnit>> { }
+        public class Query : IRequest<Result<List<LearningUnit>>> { }
 
-        public class Handler : IRequestHandler<Query, List<LearningUnit>>
+        public class Handler : IRequestHandler<Query, Result<List<LearningUnit>>>
         {
             private readonly DataContext _context;
             public Handler(DataContext context)
@@ -20,9 +21,9 @@ namespace Application.LearningUnits
                 _context = context;
             }
 
-            public async Task<List<LearningUnit>> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<Result<List<LearningUnit>>> Handle(Query request, CancellationToken cancellationToken)
             {
-                return await _context.LearningUnits.ToListAsync();
+                return Result<List<LearningUnit>>.Success(await _context.LearningUnits.ToListAsync());
             }
         }
     }

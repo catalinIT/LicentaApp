@@ -16,26 +16,28 @@ namespace API.Controllers
         [HttpGet]
         public async Task<ActionResult<List<LearningUnit>>> GetActivities()
         {
-            return await Mediator.Send(new ListLearningUnits.Query());
+            var result = await Mediator.Send(new ListLearningUnits.Query());
+            return HandleResult(result);
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<LearningUnit>> GetLearningUnit(Guid id)
+        public async Task<IActionResult> GetLearningUnit(Guid id)
         {
-            return await Mediator.Send(new DetailsLearningUnit.Query { Id = id });
+            var result = await Mediator.Send(new DetailsLearningUnit.Query { Id = id });
+            return HandleResult(result);
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> EditActivity(Guid id, LearningUnit learningUnit)
         {
             learningUnit.Id = id;
-            return Ok(await Mediator.Send(new Edit.Command { LearningUnit = learningUnit }));
+            return HandleResult(await Mediator.Send(new Edit.Command { LearningUnit = learningUnit }));
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteActivity(Guid id)
         {
-            return Ok(await Mediator.Send(new DeleteLearningUnit.Command { Id = id }));
+            return HandleResult(await Mediator.Send(new DeleteLearningUnit.Command { Id = id }));
         }
     }
 }

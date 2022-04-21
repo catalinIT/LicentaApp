@@ -1,4 +1,5 @@
-﻿using Domain;
+﻿using Application.Core;
+using Domain;
 using MediatR;
 using Persistance;
 using System;
@@ -12,12 +13,12 @@ namespace Application.LearningUnits
 {
     public class DetailsLearningUnit
     {
-        public class Query : IRequest<LearningUnit>
+        public class Query : IRequest<Result<LearningUnit>>
         {
             public Guid Id { get; set; }
         }
 
-        public class Handler : IRequestHandler<Query, LearningUnit>
+        public class Handler : IRequestHandler<Query, Result<LearningUnit>>
         {
             private readonly DataContext _context;
             public Handler(DataContext context)
@@ -25,9 +26,10 @@ namespace Application.LearningUnits
                 _context = context;
             }
 
-            public async Task<LearningUnit> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<Result<LearningUnit>> Handle(Query request, CancellationToken cancellationToken)
             {
-                return await _context.LearningUnits.FindAsync(request.Id);
+                var learningUnit = await _context.LearningUnits.FindAsync(request.Id);
+                return Result<LearningUnit>.Success(learningUnit);
             }
         }
     }
