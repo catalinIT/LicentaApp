@@ -1,16 +1,22 @@
 import { createContext, useContext } from "react";
 import CommonStore from "./commonStore";
 import LearningUnitStore from "./learningUnitStore";
+import ModalStore from "./modalStore";
+import UserStore from "./userStore";
 
 interface Store {
     learningUnitStore: LearningUnitStore;
     commonStore: CommonStore;
+    userStore: UserStore;
+    modalStore: ModalStore;
 }
 
 // object of type store with a property corresponding to a new instance of LearningUnitStore
 export const store: Store = {
     learningUnitStore: new LearningUnitStore(),
-    commonStore: new CommonStore()
+    commonStore: new CommonStore(),
+    userStore: new UserStore(),
+    modalStore: new ModalStore()
 }
 
 export const StoreContext = createContext(store);

@@ -36,7 +36,8 @@
     "semantic-ui-react": "^2.1.2",
     "tachyons-components": "^1.0.1",
     "typescript": "^4.6.3",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "yup": "^0.32.11"
   },
   "scripts": {
     "start": "react-scripts start",
