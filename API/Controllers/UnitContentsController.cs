@@ -14,17 +14,10 @@ namespace API.Controllers
     [AllowAnonymous]
     public class UnitContentsController : BaseApiController
     {
-        private readonly IMediator _mediator;
-
-        public UnitContentsController(IMediator mediator)
-        {
-            _mediator = mediator;
-        }
-
         [HttpGet]
         public async Task<ActionResult<List<UnitContent>>> GetContents()
         {
-            var a = await _mediator.Send(new ListContents.Query());
+            var a = await Mediator.Send(new ListContents.Query());
             var result = await Mediator.Send(new ListLearningUnits.Query());
             return a;
         }
