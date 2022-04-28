@@ -1,5 +1,6 @@
 ﻿using Application.Core;
 using Application.LearningUnits;
+using Application.UnitContents;
 using AutoMapper;
 using AutoMapper.Configuration;
 using MediatR;
@@ -31,6 +32,7 @@ namespace API.Extensions
                 });
             });
             services.AddMediatR(typeof(ListLearningUnits.Handler).Assembly);
+            services.AddMediatR(typeof(ListContents.Handler).Assembly);
             services.AddAutoMapper(typeof(MappingProfiles).Assembly);
 
             return services;

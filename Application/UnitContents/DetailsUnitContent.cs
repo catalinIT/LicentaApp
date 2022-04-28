@@ -12,14 +12,14 @@ using System.Threading.Tasks;
 
 namespace Application.LearningUnits
 {
-    public class DetailsLearningUnit
+    public class DetailsUnitContent
     {
-        public class Query : IRequest<Result<LearningUnit>>
+        public class Query : IRequest<Result<UnitContent>>
         {
             public Guid Id { get; set; }
         }
 
-        public class Handler : IRequestHandler<Query, Result<LearningUnit>>
+        public class Handler : IRequestHandler<Query, Result<UnitContent>>
         {
             private readonly DataContext _context;
             public Handler(DataContext context)
@@ -27,12 +27,12 @@ namespace Application.LearningUnits
                 _context = context;
             }
 
-            public async Task<Result<LearningUnit>> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<Result<UnitContent>> Handle(Query request, CancellationToken cancellationToken)
             {
-                var learningUnit = await _context.LearningUnits
-                    .Include(l => l.UnitContent)
-                    .FirstOrDefaultAsync(l => l.Id == request.Id);
-                return Result<LearningUnit>.Success(learningUnit);
+                var unitContent = await _context.UnitContents
+                    .Include(c => c.LearningUnit)
+                    .FirstOrDefaultAsync(c => c.Id == request.Id);
+                return Result<UnitContent>.Success(unitContent);
             }
         }
     }

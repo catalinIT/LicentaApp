@@ -18,8 +18,14 @@ namespace API.Controllers
         public async Task<ActionResult<List<UnitContent>>> GetContents()
         {
             var a = await Mediator.Send(new ListContents.Query());
-            var result = await Mediator.Send(new ListLearningUnits.Query());
-            return a;
+            return HandleResult(a);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetLearningUnit(Guid id)
+        {
+            var result = await Mediator.Send(new DetailsUnitContent.Query { Id = id });
+            return HandleResult(result);
         }
     }
 }

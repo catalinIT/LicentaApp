@@ -20,7 +20,6 @@ namespace API.Controllers
         public async Task<ActionResult<List<LearningUnit>>> GetActivities()
         {
             var result = await Mediator.Send(new ListLearningUnits.Query());
-            var a = await Mediator.Send(new ListContents.Query());
             return HandleResult(result);
         }
 

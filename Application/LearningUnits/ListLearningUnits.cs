@@ -23,7 +23,10 @@ namespace Application.LearningUnits
 
             public async Task<Result<List<LearningUnit>>> Handle(Query request, CancellationToken cancellationToken)
             {
-                return Result<List<LearningUnit>>.Success(await _context.LearningUnits.ToListAsync());
+                var learningUnits = await _context.LearningUnits
+                    .Include(c => c.UnitContent)
+                    .ToListAsync();
+                return Result<List<LearningUnit>>.Success(learningUnits);
             }
         }
     }
