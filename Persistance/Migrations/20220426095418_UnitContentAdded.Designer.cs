@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Persistance;
 
 namespace Persistence.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20220426095418_UnitContentAdded")]
+    partial class UnitContentAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -118,13 +120,7 @@ namespace Persistence.Migrations
                     b.Property<string>("Headline")
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid>("LearningUnitId")
-                        .HasColumnType("TEXT");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("LearningUnitId")
-                        .IsUnique();
 
                     b.ToTable("UnitContents");
                 });
@@ -257,17 +253,6 @@ namespace Persistence.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("Domain.UnitContent", b =>
-                {
-                    b.HasOne("Domain.LearningUnit", "LearningUnit")
-                        .WithOne("UnitContent")
-                        .HasForeignKey("Domain.UnitContent", "LearningUnitId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("LearningUnit");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -317,11 +302,6 @@ namespace Persistence.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("Domain.LearningUnit", b =>
-                {
-                    b.Navigation("UnitContent");
                 });
 #pragma warning restore 612, 618
         }

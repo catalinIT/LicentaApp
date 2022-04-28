@@ -50,6 +50,11 @@ namespace API
                 opt.UseSqlite(_config.GetConnectionString("DefaultConnection"));
             });
             services.AddApplicationServices();
+            services.AddControllersWithViews()
+                     .AddNewtonsoftJson(options =>
+                     options.SerializerSettings.ReferenceLoopHandling
+                     = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            );
             services.AddIdentityServices(_config);
         }
 

@@ -1,4 +1,5 @@
 ﻿using Application.LearningUnits;
+using Application.UnitContents;
 using Domain;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -19,6 +20,7 @@ namespace API.Controllers
         public async Task<ActionResult<List<LearningUnit>>> GetActivities()
         {
             var result = await Mediator.Send(new ListLearningUnits.Query());
+            var a = await Mediator.Send(new ListContents.Query());
             return HandleResult(result);
         }
 
