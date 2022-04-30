@@ -1,19 +1,6 @@
 import { observer } from "mobx-react-lite"
-import { Button, Header, Item, Segment } from "semantic-ui-react";
+import {  Header, Item, Segment } from "semantic-ui-react";
 import { LearningUnit } from "../../../app/models/learningUnit";
-
-const activityImageStyle = {
-    filter: 'brightness(30%)'
-};
-
-const activityImageTextStyle = {
-    position: 'absolute',
-    bottom: '5%',
-    left: '5%',
-    width: '100%',
-    height: 'auto',
-    color: 'white'
-};
 
 interface Props {
     learningUnit: LearningUnit
@@ -31,7 +18,7 @@ export default observer (function LearningUnitDetailedHeader({learningUnit}: Pro
                                     content={learningUnit.title}
                                 />
                                 <p>
-                                    Hosted by <strong>Bob</strong>
+                                    Category: <strong>{learningUnit.category}</strong>
                                 </p>
                             </Item.Content>
                         </Item>

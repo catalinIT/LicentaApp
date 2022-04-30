@@ -2,6 +2,7 @@ import axios, { AxiosError, AxiosResponse } from 'axios';
 import { toast } from 'react-toastify';
 import { history } from '../..';
 import { LearningUnit } from '../models/learningUnit';
+import { UnitContent } from '../models/unitContent';
 import { User, UserFormValues } from '../models/user';
 import { store } from '../stores/store';
 
@@ -79,9 +80,14 @@ const Account = {
     register: (user: UserFormValues) => requests.post<User>('/account/register', user)
 } 
 
+const UnitContents = {
+    list: () => requests.get<UnitContent[]>('/unitContents'),
+    details: (id: string) => requests.get<UnitContent>(`/unitConents/${id}`)
+}
 const agent = {
     LearningUnits,
-    Account
+    Account,
+    UnitContents
 }
 
 export default agent;

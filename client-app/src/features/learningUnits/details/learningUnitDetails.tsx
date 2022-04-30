@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { Button, Card, Grid, Header, Image } from 'semantic-ui-react';
+import {Grid } from 'semantic-ui-react';
 import LoadingComponent from '../../../app/layout/LoadingComponents';
 import { useStore } from '../../../app/stores/store';
 import LearningUnitChat from './LearningUnitChat';
@@ -27,7 +27,7 @@ export default observer(function LearningUnitDetails() {
         <Grid>
             <Grid.Column width={16}>
                 <LearningUnitDetailedHeader learningUnit={learningUnit} />
-                <LearningUnitContent />
+                <LearningUnitContent learningUnit={learningUnit}/>
                 <LearningUnitChat />
             </Grid.Column>
         </Grid>

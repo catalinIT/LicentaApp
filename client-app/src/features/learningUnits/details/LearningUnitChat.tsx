@@ -1,6 +1,21 @@
-import React from "react";
+import { values } from "mobx";
+import { toast } from 'react-toastify';
+
+import 'react-toastify/dist/ReactToastify.css'
+import { useStore } from "../../../app/stores/store";
 
 export default function LearningUnitChat() {
+
+    const {userStore} = useStore();
+
+    var onSubmit = () => {
+        var elem = document.getElementById("textareaComment") as HTMLTextAreaElement;
+        const val = elem?.value;
+        const userName = userStore.user?.username;
+        elem.value = "";
+        toast.success("Feedback received!");
+    }
+    
     return (
         <div>
             <section id="app">
@@ -14,12 +29,12 @@ export default function LearningUnitChat() {
                     </div>
                     <div className="row">
                         <div className="col-6">
-                            <textarea className="input" placeholder="Write a comment" v-model="newItem"></textarea>
+                            <textarea id="textareaComment" className="input" placeholder="Write a comment" v-model="newItem"></textarea>
                         </div>
                     </div>
                     <div className="row">
                         <div className="col-6">
-                            <button className='primaryContained' type="submit">Add Comment</button>
+                            <button onClick={onSubmit} className='primaryContained' type="submit">Add Comment</button>
                         </div>
                     </div>
                 </div>

@@ -8,7 +8,13 @@ export default class LearningUnitStore {
     selectedLearningUnit: LearningUnit | undefined = undefined;
     loading = false;
     loadingInitial = false;
-    favoriteValue = false
+    favoriteValue = false;
+    categories = new Map([
+        [1, 'Deception revealed by certain gestures'],
+        [2, "General behavioral indicators "],
+        [3, "Deception revealed by language used"],
+        [4, "General Information about the lying phenomenon"]
+    ]);
 
     constructor() {
         makeAutoObservable(this)
@@ -20,9 +26,15 @@ export default class LearningUnitStore {
             const learningUnits = await agent.LearningUnits.list();
             runInAction(() => {
                 learningUnits.forEach(learningUnit => {
+                    if(learningUnit.category == null) {
+                        this.setCategory(learningUnit);
+                    }
                     this.learningUnits.push(learningUnit);
                 })
                 this.learningUnits.forEach(learningUnit => {
+                    if(learningUnit.category == null) {
+                        this.setCategory(learningUnit);
+                    }
                     this.databaseUnits.push(learningUnit);
                 })
                 this.setLoadingInitial(false);
@@ -79,6 +91,10 @@ export default class LearningUnitStore {
 
     setLoadingInitial = (state: boolean) => {
         this.loadingInitial = state;
+    }
+
+    setCategory = (learningUnit: LearningUnit) => {
+        learningUnit.category = this.categories.get(learningUnit.unitContent.category);
     }
 
     updateLearningUnitFavoriteState = async (learningUnit: LearningUnit) => {

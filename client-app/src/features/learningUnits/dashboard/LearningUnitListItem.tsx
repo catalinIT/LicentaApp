@@ -16,7 +16,8 @@ export default function LearningUnitListItem({ learningUnit }: Props) {
                     <Item className="learningUnitItem" key={learningUnit.id}>
                         <Item.Content>
                             <Item.Header className="itemHeader" as='a'>{learningUnit.title}</Item.Header>
-                            <Item.Description>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</Item.Description>
+                            <Item.Meta style={{fontWeight: 'bold'}}>{learningUnit.category}</Item.Meta>
+                            <Item.Description>{learningUnit.unitContent.headline}</Item.Description>
                             <Item.Image size="tiny" circular src='/assets/emoji5.jpg' />
                             <Item.Extra style={{ height: "fit-content" }}>
                                 <Button

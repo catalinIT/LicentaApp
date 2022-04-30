@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Application.Core;
+using System.Collections.Generic;
+using Domain;
 
 namespace API.Controllers
 {

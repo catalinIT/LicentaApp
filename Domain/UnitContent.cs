@@ -13,16 +13,6 @@ namespace Domain
         {
         }
 
-        public UnitContent(UnitContent _unitContent)
-        {
-            LearningUnitId = _unitContent.LearningUnitId;
-            Id = _unitContent.Id;
-            Headline = _unitContent.Headline;
-            Content = _unitContent.Content;
-            Category = _unitContent.Category;
-            LearningUnit = new LearningUnit(_unitContent.LearningUnit);
-        }
-
         [ForeignKey("LearningUnit")]
         public Guid LearningUnitId { get; set; }
         public Guid Id { get; set; }
