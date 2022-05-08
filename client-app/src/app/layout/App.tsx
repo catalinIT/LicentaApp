@@ -1,6 +1,6 @@
 
 import './styles.css';
-import { Container, Header, Icon, List } from 'semantic-ui-react';
+import { Container } from 'semantic-ui-react';
 import NavBar from './navbar';
 import LearningUnitDashboard from '../../features/learningUnits/dashboard/learningUnitsDashboard';
 import { observer } from 'mobx-react-lite';

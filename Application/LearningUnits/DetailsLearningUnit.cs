@@ -31,6 +31,7 @@ namespace Application.LearningUnits
             {
                 var learningUnit = await _context.LearningUnits
                     .Include(l => l.UnitContent)
+                    .Include(l => l.Comments)
                     .FirstOrDefaultAsync(l => l.Id == request.Id);
                 return Result<LearningUnit>.Success(learningUnit);
             }

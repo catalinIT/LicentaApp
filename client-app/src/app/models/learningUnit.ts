@@ -1,3 +1,4 @@
+import { LUComment } from "./comment";
 import { UnitContent } from "./unitContent";
 
 export interface LearningUnit {
@@ -6,4 +7,5 @@ export interface LearningUnit {
     isFavorite: boolean;
     unitContent: UnitContent;
     category?: string;
+    comments?: LUComment [];
 }

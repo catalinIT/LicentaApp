@@ -25,6 +25,7 @@ namespace Application.LearningUnits
             {
                 var learningUnits = await _context.LearningUnits
                     .Include(c => c.UnitContent)
+                    .Include(c => c.Comments)
                     .ToListAsync();
                 return Result<List<LearningUnit>>.Success(learningUnits);
             }

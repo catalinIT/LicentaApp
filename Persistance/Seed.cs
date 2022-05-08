@@ -28,6 +28,37 @@ namespace Persistence
                 }
             }
 
+            if (!context.Comments.Any())
+            {
+                var comments = new List<Comment>
+                {
+                   new Comment
+                   {
+                       LearningUnitId = new Guid("159e429e-99c0-4eeb-93c4-5ef214066779"),
+                       Content = "Nice job bro!",
+                       CreatedAt = DateTime.Today,
+                       User = new AppUser{DisplayName = "Bobita", UserName = "bobini", Email = "bobe@test.com"},
+                   },
+                   new Comment
+                   {
+                       LearningUnitId = new Guid("ed3165c0-9f0c-4f2e-9165-c05c36ea9eb8"),
+                       Content = "Se putea mai bine!",
+                       CreatedAt = new DateTime(2008, 6, 11),
+                       User = new AppUser{DisplayName = "Bobita1", UserName = "bobini1", Email = "bobe1@test.com"},
+                   },
+                   new Comment
+                   {
+                       LearningUnitId = new Guid("be7fac16-80ed-4754-9605-f927f9868043"),
+                       Content = "Hai ca da!",
+                       CreatedAt = new DateTime(2006, 5, 12),
+                       User = new AppUser{DisplayName = "Bobita2", UserName = "bobini2", Email = "bobe2@test.com"},
+                   },
+
+                };
+                await context.Comments.AddRangeAsync(comments);
+                await context.SaveChangesAsync();
+            }
+
             if (!context.LearningUnits.Any())
             {
                 var learningUnits = new List<LearningUnit>

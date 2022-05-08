@@ -1,6 +1,7 @@
 import axios, { AxiosError, AxiosResponse } from 'axios';
 import { toast } from 'react-toastify';
 import { history } from '../..';
+import { LUComment } from '../models/comment';
 import { LearningUnit } from '../models/learningUnit';
 import { UnitContent } from '../models/unitContent';
 import { User, UserFormValues } from '../models/user';
@@ -84,10 +85,17 @@ const UnitContents = {
     list: () => requests.get<UnitContent[]>('/unitContents'),
     details: (id: string) => requests.get<UnitContent>(`/unitConents/${id}`)
 }
+
+const Comments = {
+    list: () => requests.get<LUComment[]>('/Comment'),
+    listLearningUnits: (id: string) => requests.get<LUComment[]>(`/Comment/${id}`),
+    create: (comment: LUComment) => axios.post<void>('/Comment', comment)
+}
 const agent = {
     LearningUnits,
     Account,
-    UnitContents
+    UnitContents,
+    Comments
 }
 
 export default agent;

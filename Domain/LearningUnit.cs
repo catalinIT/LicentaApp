@@ -18,5 +18,6 @@ namespace Domain
 
         public bool IsFavorite { get; set; }
         public UnitContent UnitContent { get; set; }
+        public ICollection<Comment> Comments { get; set; }
     }
 }

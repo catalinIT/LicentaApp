@@ -3,7 +3,7 @@ import { LearningUnit } from "../../../app/models/learningUnit";
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import Favorite from "@material-ui/icons/Favorite";
 import IconButton from '@material-ui/core/IconButton';
-import { store, useStore } from "../../../app/stores/store";
+import { useStore } from "../../../app/stores/store";
 import { observer } from "mobx-react-lite";
 
 interface Props {

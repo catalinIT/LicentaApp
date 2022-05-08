@@ -1,7 +1,6 @@
 import { Button, Menu, MenuItem } from '@material-ui/core';
-import React, { useContext } from 'react';
+import React from 'react';
 import { FaFilter } from 'react-icons/fa';
-import { Header } from 'semantic-ui-react';
 import { LearningUnit } from '../../../app/models/learningUnit';
 import { useStore } from '../../../app/stores/store';
 import { observer } from "mobx-react-lite";

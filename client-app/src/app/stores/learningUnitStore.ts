@@ -1,12 +1,16 @@
 import { makeAutoObservable, runInAction } from "mobx";
 import agent from "../api/agent";
+import { LUComment } from "../models/comment";
 import { LearningUnit } from "../models/learningUnit";
 
 export default class LearningUnitStore {
     learningUnits: LearningUnit[] = [];
     databaseUnits: LearningUnit[] = [];
     selectedLearningUnit: LearningUnit | undefined = undefined;
+    selectedLearningUnitComments: LUComment[] | undefined = undefined;
+    databaseComments = new Map<string, LUComment[]>();
     loading = false;
+    commentJustAdded = false;
     loadingInitial = false;
     favoriteValue = false;
     categories = new Map([
@@ -26,13 +30,13 @@ export default class LearningUnitStore {
             const learningUnits = await agent.LearningUnits.list();
             runInAction(() => {
                 learningUnits.forEach(learningUnit => {
-                    if(learningUnit.category == null) {
+                    if (learningUnit.category == null) {
                         this.setCategory(learningUnit);
                     }
                     this.learningUnits.push(learningUnit);
                 })
                 this.learningUnits.forEach(learningUnit => {
-                    if(learningUnit.category == null) {
+                    if (learningUnit.category == null) {
                         this.setCategory(learningUnit);
                     }
                     this.databaseUnits.push(learningUnit);
@@ -69,6 +73,29 @@ export default class LearningUnitStore {
                     this.selectedLearningUnit = learningUnit;
                     this.setLoadingInitial(false)
                 })
+            } catch (error) {
+                console.log(error);
+                runInAction(() => {
+                    this.setLoadingInitial(false);
+                })
+            }
+        }
+    }
+
+    loadLearningUnitComments = async (id: string) => {
+        const lu = this.databaseComments.get(id);
+        if (lu && !this.commentJustAdded) {
+            this.selectedLearningUnitComments = [...lu];
+        } else {
+            this.loadingInitial = true;
+            try {
+                const learningUnitComments = await agent.Comments.listLearningUnits(id);
+                runInAction(() => {
+                    this.selectedLearningUnitComments = [...learningUnitComments];
+                    this.databaseComments.set(id, learningUnitComments);
+                    this.commentJustAdded = false;
+                })
+                this.setLoadingInitial(false);
             } catch (error) {
                 console.log(error);
                 runInAction(() => {
@@ -115,5 +142,5 @@ export default class LearningUnitStore {
         }
     }
 
-    
+
 }
