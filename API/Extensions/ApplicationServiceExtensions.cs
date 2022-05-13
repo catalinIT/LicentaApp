@@ -1,5 +1,6 @@
 ﻿using Application.Core;
 using Application.LearningUnits;
+using Application.QuizQuestions;
 using Application.UnitContents;
 using AutoMapper;
 using AutoMapper.Configuration;
@@ -33,6 +34,7 @@ namespace API.Extensions
             });
             services.AddMediatR(typeof(ListLearningUnits.Handler).Assembly);
             services.AddMediatR(typeof(ListContents.Handler).Assembly);
+            services.AddMediatR(typeof(ListQuizQuestions.Handler).Assembly);
             services.AddAutoMapper(typeof(MappingProfiles).Assembly);
 
             return services;

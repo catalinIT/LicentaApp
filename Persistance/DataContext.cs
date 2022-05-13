@@ -16,5 +16,7 @@ namespace Persistance
         public DbSet<UnitContent> UnitContents { get; set; }
 
         public DbSet<Comment> Comments { get; set; }
+
+        public DbSet<QuizQuestion> QuizQuestions { get; set; }
     }
 }

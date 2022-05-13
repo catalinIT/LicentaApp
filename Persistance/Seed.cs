@@ -172,8 +172,170 @@ namespace Persistence
                 await context.UnitContents.AddRangeAsync(unitContents);
                 await context.SaveChangesAsync();
             }
-
-            
+            if (!context.QuizQuestions.Any())
+            {
+                var quizQuestions = new List<QuizQuestion>
+                {
+                    new QuizQuestion
+                    {
+                        Difficulty = QuestionDifficulty.Easy,
+                        CorrectAnswer = "1984",
+                        Question = "Name a book written by George Orwell",
+                        IncorrectAnswers = new List<IncorrectAnswer>
+                        {
+                            new IncorrectAnswer { Answer = "1983"},
+                            new IncorrectAnswer { Answer = "1978"},
+                            new IncorrectAnswer { Answer = "1987"}
+                        }
+                    },
+                     new QuizQuestion
+                    {
+                        Difficulty = QuestionDifficulty.Medium,
+                        CorrectAnswer = "Uruguay",
+                        Question = "What country won the very first FIFA World Cup in 1930?",
+                        IncorrectAnswers = new List<IncorrectAnswer>
+                        {
+                            new IncorrectAnswer { Answer = "Brazil"},
+                            new IncorrectAnswer { Answer = "Romania"},
+                            new IncorrectAnswer { Answer = "Ireland"}
+                        }
+                    },
+                      new QuizQuestion
+                    {
+                        Difficulty = QuestionDifficulty.Hard,
+                        CorrectAnswer = "Venus",
+                        Question = "Which planet is the hottest in the solar system?",
+                        IncorrectAnswers = new List<IncorrectAnswer>
+                        {
+                            new IncorrectAnswer { Answer = "Mars"},
+                            new IncorrectAnswer { Answer = "Pluto"},
+                            new IncorrectAnswer { Answer = "Jupyter"}
+                        }
+                    },
+                      new QuizQuestion
+                    {
+                        Difficulty = QuestionDifficulty.Hard,
+                        CorrectAnswer = "Bavarian Motor Works",
+                        Question = "What does BMW stand for (in English)?",
+                        IncorrectAnswers = new List<IncorrectAnswer>
+                        {
+                            new IncorrectAnswer { Answer = "Bine ma woody"},
+                            new IncorrectAnswer { Answer = "Bergamez manager walloo"},
+                            new IncorrectAnswer { Answer = "Barre, mere were"}
+                        }
+                    },
+                      new QuizQuestion
+                    {
+                        Difficulty = QuestionDifficulty.Easy,
+                        CorrectAnswer = "Spice Girls",
+                        Question = "Which British girl group had a member by the name of Mel B?",
+                        IncorrectAnswers = new List<IncorrectAnswer>
+                        {
+                            new IncorrectAnswer { Answer = "Little mix"},
+                            new IncorrectAnswer { Answer = "Pussycat Dolls"},
+                            new IncorrectAnswer { Answer = "Andre"}
+                        }
+                    },
+                      new QuizQuestion
+                    {
+                        Difficulty = QuestionDifficulty.Easy,
+                        CorrectAnswer = "Marie Curie",
+                        Question = "Who was the first woman to win a Nobel Prize (1903)?",
+                        IncorrectAnswers = new List<IncorrectAnswer>
+                        {
+                            new IncorrectAnswer { Answer = "Angelina Jolie"},
+                            new IncorrectAnswer { Answer = "Zara Larsoon"},
+                            new IncorrectAnswer { Answer = "Andreea Marin"}
+                        }
+                    },
+                      new QuizQuestion
+                    {
+                        Difficulty = QuestionDifficulty.Easy,
+                        CorrectAnswer = "Classical",
+                        Question = "What type of music has been shown to help plants grow better and faster?",
+                        IncorrectAnswers = new List<IncorrectAnswer>
+                        {
+                            new IncorrectAnswer { Answer = "Rap"},
+                            new IncorrectAnswer { Answer = "Hip-Hop"},
+                            new IncorrectAnswer { Answer = "Pop funky"}
+                        }
+                    },
+                      new QuizQuestion
+                    {
+                        Difficulty = QuestionDifficulty.Easy,
+                        CorrectAnswer = "Berlin",
+                        Question = "Ludwig Van Beethoven was born in 1770 in which city?",
+                        IncorrectAnswers = new List<IncorrectAnswer>
+                        {
+                            new IncorrectAnswer { Answer = "Constanta"},
+                            new IncorrectAnswer { Answer = "Mangalia"},
+                            new IncorrectAnswer { Answer = "Bacau"}
+                        }
+                    },
+                      new QuizQuestion
+                    {
+                        Difficulty = QuestionDifficulty.Easy,
+                        CorrectAnswer = "Berlin",
+                        Question = "Ludwig Van Beethoven was born in 1770 in which city?",
+                        IncorrectAnswers = new List<IncorrectAnswer>
+                        {
+                            new IncorrectAnswer { Answer = "Constanta"},
+                            new IncorrectAnswer { Answer = "Mangalia"},
+                            new IncorrectAnswer { Answer = "Bacau"}
+                        }
+                    },
+                      new QuizQuestion
+                    {
+                        Difficulty = QuestionDifficulty.Easy,
+                        CorrectAnswer = "Cancer",
+                        Question = "Which horoscope sign has a crab?",
+                        IncorrectAnswers = new List<IncorrectAnswer>
+                        {
+                            new IncorrectAnswer { Answer = "Leo"},
+                            new IncorrectAnswer { Answer = "Spirancha"},
+                            new IncorrectAnswer { Answer = "Virgo"}
+                        }
+                    },
+                      new QuizQuestion
+                    {
+                        Difficulty = QuestionDifficulty.Easy,
+                        CorrectAnswer = "Zero",
+                        Question = "How many children does Oprah Winfrey have?",
+                        IncorrectAnswers = new List<IncorrectAnswer>
+                        {
+                            new IncorrectAnswer { Answer = "Three"},
+                            new IncorrectAnswer { Answer = "Two"},
+                            new IncorrectAnswer { Answer = "All of them"}
+                        }
+                    },
+                       new QuizQuestion
+                    {
+                        Difficulty = QuestionDifficulty.Easy,
+                        CorrectAnswer = "A bishop",
+                        Question = "Which chess piece can only move diagonally?",
+                        IncorrectAnswers = new List<IncorrectAnswer>
+                        {
+                            new IncorrectAnswer { Answer = "Horse"},
+                            new IncorrectAnswer { Answer = "King"},
+                            new IncorrectAnswer { Answer = "Queen"}
+                        }
+                    },
+                        new QuizQuestion
+                    {
+                        Difficulty = QuestionDifficulty.Easy,
+                        CorrectAnswer = "Mexico",
+                        Question = "Which country was the Caesar salad invented in?",
+                        IncorrectAnswers = new List<IncorrectAnswer>
+                        {
+                            new IncorrectAnswer { Answer = "Romania"},
+                            new IncorrectAnswer { Answer = "Canada"},
+                            new IncorrectAnswer { Answer = "Italy"}
+                        }
+                    },
+                };
+                await context.QuizQuestions.AddRangeAsync(quizQuestions);
+                await context.SaveChangesAsync();
+            }
         }
     }
 }
