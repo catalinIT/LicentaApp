@@ -14,7 +14,6 @@ export default observer(function LearningUnitDetails() {
     const { learningUnitStore } = useStore();
     const { selectedLearningUnit: learningUnit, loadLearningUnit, loadLearningUnitComments, loadingInitial, selectedLearningUnitComments: comments } = learningUnitStore;
     const { id } = useParams<{ id: string }>();
-    var a = comments;
 
     useEffect(() => {
         if (id) {

@@ -3,6 +3,7 @@ import { toast } from 'react-toastify';
 import { history } from '../..';
 import { LUComment } from '../models/comment';
 import { LearningUnit } from '../models/learningUnit';
+import { Question } from '../models/question';
 import { UnitContent } from '../models/unitContent';
 import { User, UserFormValues } from '../models/user';
 import { store } from '../stores/store';
@@ -91,11 +92,17 @@ const Comments = {
     listLearningUnits: (id: string) => requests.get<LUComment[]>(`/Comment/${id}`),
     create: (comment: LUComment) => axios.post<void>('/Comment', comment)
 }
+
+const Questions = {
+    list: () => requests.get<Question[]>('/Questions')
+}
+
 const agent = {
     LearningUnits,
     Account,
     UnitContents,
-    Comments
+    Comments,
+    Questions
 }
 
 export default agent;
