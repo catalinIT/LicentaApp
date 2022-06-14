@@ -6,6 +6,7 @@ import axios from 'axios';
 import Result from './Result';
 import Status from './Status';
 import { key } from './secretAI';
+import { Button } from 'semantic-ui-react';
 
 export default function LieDetector() {
 
@@ -13,6 +14,13 @@ export default function LieDetector() {
         baseURL: 'https://api.assemblyai.com/v2',
         headers: {
             authorization: key,
+            'content-type': 'application/json'
+        },
+    });
+
+    const fastApi = axios.create({
+        baseURL: 'http://127.0.0.1:8000',
+        headers: {
             'content-type': 'application/json'
         },
     });
@@ -35,6 +43,10 @@ export default function LieDetector() {
 
     // component that is about to be updated while we make the API request
     const [isLoading, setIsLoading] = useState(false);
+
+    const [isLieDetectorLoading, setIsLieDetectorLoading] = useState(false);
+
+    const [liePrediction, setLiePrediction] = useState("");
 
     useEffect(() => {
         const interval = setInterval(async () => {
@@ -62,6 +74,7 @@ export default function LieDetector() {
     const handleReset = () => {
         setAudioDetails({ ...initialState });
         setTranscript({ id: '' });
+        setIsLieDetectorLoading(false);
     };
 
     const handleAudioUpload = async (audioFile) => {
@@ -80,13 +93,41 @@ export default function LieDetector() {
         setTranscript({ id: data.id });
     }
 
+    const handleLieResponse = async (sentence) => {
+        setIsLieDetectorLoading(true);
+
+        const response = await fastApi.post('/predict',
+            {
+                "statement_normalized": sentence
+            });
+
+        const prediction = response.data.prediction;
+        prediction ? setLiePrediction("possibly a lie") : setLiePrediction("the truth and only the truth")
+        console.log(prediction);
+    }
+
     return (
         <Box textAlign="center" fontSize="xl">
             <Grid minH="100vh" p={3}>
                 <Stack spacing={8} >
                     <Box>
                         {trasncript.text && trasncript.status === 'completed' ? (
-                            <Result transcript={trasncript} />
+                            <Box>
+                                <Result transcript={trasncript} />
+                                <Button onClick={() => handleLieResponse(trasncript.text)}>
+                                    Let's see if you are lying
+                                </Button>
+                                <Box>
+                                    {isLieDetectorLoading ? (
+                                        <Box>
+                                            <Text>It looks like you have told <b>{liePrediction}</b></Text>
+                                            <Text>You can press the Clear button and then record yourself again</Text>
+                                        </Box>
+                                    ) : (
+                                        <Text></Text>
+                                    )}
+                                </Box>
+                            </Box>
                         ) : (
                             <Status isLoading={isLoading} status={trasncript.status} />
                         )}
