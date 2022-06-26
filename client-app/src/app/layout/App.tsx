@@ -18,6 +18,8 @@ import { useStore } from '../stores/store';
 import { useEffect } from 'react';
 import LoadingComponent from './LoadingComponents';
 import ModalContainer from '../common/modals/modalContainer';
+import PhotoUploadWidget from '../common/imageUpload/PhotoUploadWidget';
+
 //a toast container allows us to display toast messages from anywhere within our app
 // adding the not found component in the last route we state that, any request that does not redirect the use to one of the other routes will led him to see the not found component
 // surrounding our routes inside a switch component we ensure that one and only one route could be activated at one time
@@ -57,6 +59,7 @@ function App() {
                 <Route path='/errors' component={TestErrors} />
                 <Route path='/server-errors' component={ServerError} />
                 <Route path='/login' component={LoginForm} />
+                <Route path='/deceptionInPhotos' component={PhotoUploadWidget} />
                 <Route component={NotFound} />
               </Switch>
             </Container>

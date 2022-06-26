@@ -454,6 +454,13 @@ button.primaryContained:hover {
     margin-bottom: -20px;
     margin-left: -29px;
 }
+
 .comment-author:hover {
     text-decoration: underline;
+}
+
+.three-section-element {
+    float: left;
+    clear: left;
+    padding: 10px;
 }
